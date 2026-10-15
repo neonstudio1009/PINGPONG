@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="與電腦或朋友一起玩的網頁桌球遊戲">
+  <title>RALLY CLUB｜桌球對戰</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" id="homeBrand" aria-label="回到大廳">
+        <span class="brand-mark">R</span><span>RALLY<span class="brand-light"> CLUB</span></span>
+      </a>
+      <div class="topbar-right">
+        <span class="status-dot"></span><span class="status-label">網頁桌球俱樂部</span>
+      </div>
+    </header>
+
+    <main>
+      <section id="lobby" class="screen active">
+        <div class="hero">
+          <div class="eyebrow"><span class="eyebrow-line"></span> YOUR COURT. YOUR RULES.</div>
+          <h1>準備好<br><span>接球了嗎？</span></h1>
+          <p class="hero-copy">拿起球拍，進入球場。你可以挑戰電腦，<br class="desktop-only">也可以邀請朋友來一場即時對決。</p>
+          <div class="hero-tags"><span>01 / 單人練習</span><span>02 / 好友對戰</span><span>滑鼠・觸控皆可</span></div>
+        </div>
+
+        <div class="mode-grid">
+          <button class="mode-card solo-card" id="soloBtn">
+            <div class="card-top"><span class="mode-number">MODE 01</span><span class="round-icon">↗</span></div>
+            <div class="table-art solo-art" aria-hidden="true"><div class="mini-table"><i></i><b></b><em></em></div><span class="art-ball"></span></div>
+            <div class="card-bottom"><div><h2>單人對戰</h2><p>挑戰電腦，練出你的節奏</p></div><span class="card-arrow">→</span></div>
+          </button>
+          <button class="mode-card online-card" id="onlineBtn">
+            <div class="card-top"><span class="mode-number">MODE 02</span><span class="round-icon">↗</span></div>
+            <div class="table-art online-art" aria-hidden="true"><div class="mini-table"><i></i><b></b><em></em></div><span class="art-ball"></span><span class="player-dot player-a"></span><span class="player-dot player-b"></span></div>
+            <div class="card-bottom"><div><h2>線上對戰</h2><p>建立房間，和朋友一較高下</p></div><span class="card-arrow">→</span></div>
+          </button>
+        </div>
+        <footer class="lobby-footer"><span>RALLY CLUB © 2026</span><span>PLAY FAIR. HAVE FUN.</span></footer>
+      </section>
+
+      <section id="onlineSetup" class="screen">
+        <button class="back-link" id="backToLobby">← 回到大廳</button>
+        <div class="setup-wrap">
+          <div class="setup-intro"><div class="eyebrow"><span class="eyebrow-line"></span> MULTIPLAYER</div><h1>好友對戰<span>.</span></h1><p>建立一個私人房間，或輸入朋友分享給你的房間代碼。</p></div>
+          <div class="setup-grid">
+            <article class="setup-card">
+              <div class="setup-icon">＋</div><h2>建立房間</h2><p>你會成為主場玩家，建立後把代碼分享給朋友。</p>
+              <label for="createName">你的暱稱</label><input id="createName" maxlength="16" placeholder="輸入暱稱" value="球桌新手">
+              <button class="primary-btn" id="createRoomBtn">建立私人房間 <span>→</span></button>
+            </article>
+            <article class="setup-card">
+              <div class="setup-icon join-icon">↗</div><h2>加入房間</h2><p>輸入朋友的房間代碼，即可加入同一場比賽。</p>
+              <label for="joinName">你的暱稱</label><input id="joinName" maxlength="16" placeholder="輸入暱稱" value="球桌玩家">
+              <label for="roomCode">房間代碼</label><input id="roomCode" maxlength="5" placeholder="例如 A7K2Q" class="code-input" autocomplete="off">
+              <button class="primary-btn" id="joinRoomBtn">加入對戰 <span>→</span></button>
+            </article>
+          </div>
+          <p class="setup-note"><span>ⓘ</span> 線上對戰需要伺服器已啟動；第一次測試時，請先部署或在本機啟動伺服器。</p>
+          <p id="setupError" class="error-text" role="alert"></p>
+        </div>
+      </section>
+
+      <section id="waitingRoom" class="screen">
+        <button class="back-link" id="leaveWaiting">← 離開房間</button>
+        <div class="waiting-panel">
+          <div class="eyebrow"><span class="eyebrow-line"></span> PRIVATE MATCH</div>
+          <h1>你的球場<span>.</span></h1>
+          <p class="muted">把房間代碼傳給朋友，等對方加入後就能開始。</p>
+          <div class="room-code-box"><span>ROOM CODE</span><strong id="displayRoomCode">-----</strong><button id="copyCodeBtn" title="複製代碼">複製</button></div>
+          <div class="player-slots">
+            <div class="player-slot"><span class="slot-avatar">1</span><div><strong id="hostName">主場玩家</strong><small>PLAYER ONE</small></div><span class="ready-mark">✓</span></div>
+            <div class="player-slot"><span class="slot-avatar guest-avatar">2</span><div><strong id="guestName">等待玩家加入…</strong><small id="guestStatus">WAITING FOR PLAYER</small></div><span id="guestReady" class="waiting-pulse">···</span></div>
+          </div>
+          <p id="waitingHint" class="waiting-hint">房間已建立，等待另一位玩家加入。</p>
+          <button class="primary-btn" id="startMatchBtn" disabled>等待對手加入 <span>→</span></button>
+        </div>
+      </section>
+
+      <section id="gameScreen" class="screen game-screen">
+        <div class="game-header"><button class="back-link" id="exitGame">← 離開比賽</button><div class="game-mode-label" id="gameModeLabel">SOLO MATCH</div><button class="small-ghost" id="soundToggle">音效：關</button></div>
+        <div class="scoreboard">
+          <div class="score-player"><span class="score-avatar">YOU</span><span id="leftPlayerName">你</span></div>
+          <div class="score-numbers"><strong id="leftScore">0</strong><span>:</span><strong id="rightScore">0</strong></div>
+          <div class="score-player right-player"><span id="rightPlayerName">電腦</span><span class="score-avatar opponent-avatar">CPU</span></div>
+        </div>
+        <div class="court-wrap">
+          <canvas id="gameCanvas" aria-label="桌球遊戲場地，可用滑鼠或觸控移動球拍"></canvas>
+          <div class="court-overlay" id="courtOverlay">
+            <div class="overlay-card"><span class="overlay-kicker">MATCH READY</span><h2 id="overlayTitle">準備開打？</h2><p id="overlayText">移動滑鼠或手指，控制你的球拍。</p><button class="primary-btn" id="startGameBtn">開始比賽 <span>→</span></button></div>
+          </div>
+        </div>
+        <div class="game-controls"><span><kbd>滑鼠移動</kbd> 或 <kbd>手指滑動</kbd> 控制球拍</span><span id="gameHint">先得到 7 分獲勝</span></div>
+        <div class="mobile-help">在球桌上上下滑動，讓球拍接住球。</div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
